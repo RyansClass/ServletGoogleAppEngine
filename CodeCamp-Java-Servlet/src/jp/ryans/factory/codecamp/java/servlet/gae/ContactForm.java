@@ -12,11 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-//import jp.ryans.introcat.mail.SendMail;
-
-import com.google.appengine.labs.repackaged.org.json.JSONException;
-import com.google.appengine.labs.repackaged.org.json.JSONObject;
-
 @SuppressWarnings("serial")
 public class ContactForm extends HttpServlet {
 
@@ -32,19 +27,6 @@ public class ContactForm extends HttpServlet {
 			public String getName() { return this.name; }
 		}
 
-		private enum JsonTag {
-			STATUS("status"),
-			MESSAGE("message"),
-			ERRORS("errors"),
-			ERROR_PARAMETER("parameter"),
-			ERROR_MESSAGE("error_message"),
-			RESULTS_SUCCESS("success"),
-			RESULTS_ERROR("error");
-
-			private String name;
-			JsonTag(String name) {this.name = name;}
-			public String getName() {return this.name;}
-		}
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req, resp);
@@ -56,9 +38,9 @@ public class ContactForm extends HttpServlet {
 		String name = "";
 		String email = "";
 		String message = "";
-		String results ="";
 		InternetAddress address = new InternetAddress();
 		Map<String, String> error = new HashMap<String, String>();
+		ContactJson json = new ContactJson();
 		try {
         	//レスポンス設定
 			resp.setContentType("application/json");
@@ -89,23 +71,19 @@ public class ContactForm extends HttpServlet {
     			error.put(Requestor.MESSAGE.getName(),"お問い合わせ内容を入力してください。");
     		}
     		if ( !error.isEmpty() ) {
-				error.put(JsonTag.MESSAGE.getName(),"パラメータが正しくありません。");
-    			results = setErrorMessage(error);
+				json.setMessage("パラメータが正しくありません。");
+    			json.setErrorMessage(error);
     		} else {
     			if ( setContactMessage(name,email,message) ) {
-    				JSONObject result = new JSONObject();
-    				result.put(JsonTag.STATUS.getName(), JsonTag.RESULTS_SUCCESS.getName());
-    				result.put(JsonTag.MESSAGE.getName(), "正常に送信できました。");
-        			results =  result.toString();
+    				json.setSuccess();
+    				json.setMessage("正常に送信できました。");
     			} else {
-    				error.put(JsonTag.MESSAGE.getName(),"メール送信できませんでした。");
-    				results = setErrorMessage(error);
+    				json.setMessage("メール送信できませんでした。");
+    				json.setErrorMessage(error);
     			}
     		}
-
-    		byte[] b = results.getBytes("UTF-8");
-    		resp.setContentLength(b.length);
-    		resp.getWriter().println(results);
+    		
+    		json.writeContent(resp,"UTF-8");
 
 		} catch (Exception e) {
         	log.severe("異常終了" + e.getMessage());
@@ -114,38 +92,8 @@ public class ContactForm extends HttpServlet {
         log.info("正常終了");
 	}
 
-	private String setErrorMessage(Map<String, String> error) throws JSONException {
-		JSONObject result = new JSONObject();
-		result.put(JsonTag.STATUS.getName(), JsonTag.RESULTS_ERROR.getName());
-		result.put(JsonTag.MESSAGE.getName(), error.get(JsonTag.MESSAGE.getName()));
-		JSONObject err = new JSONObject();
-		for ( String key : error.keySet() ) {
-			if ( ! key.equals(JsonTag.MESSAGE.getName()) ) {
-				err.put(key, error.get(key));
-			}
-		}
-		result.put(JsonTag.ERRORS.getName(), err);
-		return result.toString();
-	}
-
 	private boolean setContactMessage(String name, String email, String message) {
-		/*
-		// メールメッセージ作成
-		SendMail mail = null;
-		String subject = "いんとろ猫かふぇ お問い合わせ";
-		try {
-			mail = new SendMail("contact.txt",false);
-			mail.setSubject(subject);
-			mail.putFrame("UserName", name);
-			mail.putFrame("Content", message);
-			mail.setTo(email);
-			mail.setBcc("system@ryans.jp");
-			mail.send();
-		} catch (Exception e) {
-			// メール送信エラー
-			return false;
-		}
-		*/
+
 		return true;
 	}
 
