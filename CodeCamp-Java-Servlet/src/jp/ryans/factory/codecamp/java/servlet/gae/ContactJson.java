@@ -20,42 +20,50 @@ public class ContactJson {
 		RESULTS_ERROR("error");
 
 		private String name;
-		JsonTag(String name) {this.name = name;}
-		public String getName() {return this.name;}
+
+		JsonTag(String name) {
+			this.name = name;
+		}
+
+		public String getName() {
+			return this.name;
+		}
 	}
-	
+
 	JSONObject wrap = null;
-	
+
 	public ContactJson() {
 		wrap = new JSONObject();
 	}
-	
+
 	public void setSuccess() throws JSONException {
 		setStatuse(JsonTag.RESULTS_SUCCESS.getName());
 	}
+
 	public void setError() throws JSONException {
 		setStatuse(JsonTag.RESULTS_ERROR.getName());
 	}
+
 	public void setStatuse(String status) throws JSONException {
 		wrap.put(JsonTag.STATUS.getName(), status);
 	}
-	
+
 	public void setMessage(String message) throws JSONException {
-		wrap.put(JsonTag.MESSAGE.getName(),message);
+		wrap.put(JsonTag.MESSAGE.getName(), message);
 	}
-	
+
 	public void setErrorMessage(Map<String, String> error) throws JSONException {
-		
+
 		JSONObject err = new JSONObject();
-		for ( String key : error.keySet() ) {
-			if ( ! key.equals(JsonTag.MESSAGE.getName()) ) {
+		for (String key : error.keySet()) {
+			if (!key.equals(JsonTag.MESSAGE.getName())) {
 				err.put(key, error.get(key));
 			}
 		}
 		setError();
-		setMessage(error.get(JsonTag.MESSAGE.getName()));
 		wrap.put(JsonTag.ERRORS.getName(), err);
 	}
+
 	@Override
 	public String toString() {
 		return wrap.toString();
@@ -66,5 +74,4 @@ public class ContactJson {
 		resp.setContentLength(b.length);
 		resp.getWriter().print(wrap.toString());
 	}
-
 }

@@ -4,99 +4,159 @@
 <meta charset="UTF-8">
 <title>お問い合わせ</title>
 <link rel="stylesheet" type="text/css" href="css/initial.css" />
-<link rel="stylesheet" type="text/css" href="css/pc-style.css" />
-<link rel="stylesheet" type="text/css" href="css/pc-page01.css" />
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>
+	$(document).ready(function() {
+		$('#contactForm').find('button[type="button"]').click(submitContact);
+	});
 
-function submitContact() {
-	var n = $('input[name="contact_name"]').val();
-	var e = $('input[name="contact_email"]').val();
-	var m = $('textarea[name="contact_message"]').val();
-	var url = "/ContactForm?contact_name=" + encodeURI(n) + "&contact_email=" + encodeURI(e) + "&contact_message=" + encodeURI(m);
-	var id = $("#id").attr("value");
-	$('button').attr("disabled", true);
-	$.getJSON(url, {id : id}).done(doneContact).fail(failContact);
-	return false;
-}
-
-function doneContact(datos) {
-	if ("success" == datos.status) {
-		$("#contactForm").attr("class", "nonedisplay");
-		$("#responsBox").attr("class", "showdisplay");
-	} else {
-		if (datos.errors.contact_name) {
-			$("#name_error").html(datos.errors.contact_name);
-		} else {
-			$("#name_error").html("");
-		}
-		if (datos.errors.contact_email) {
-			$("#email_error").html(datos.errors.contact_email);
-		} else {
-			$("#email_error").html("");
-		}
-		if (datos.errors.contact_message) {
-			$("#message_error").html(datos.errors.contact_message);
-		} else {
-			$("#message_error").html("");
-		}
-		if (!datos.errors) {
-			$("#responsError").attr("class", "showdisplay");
-		}
+	function submitContact() {
+		var n = $('input[name="contact_name"]').val();
+		var e = $('input[name="contact_email"]').val();
+		var m = $('textarea[name="contact_message"]').val();
+		var url = "/ContactForm";
+		var q = {
+			contact_name : encodeURI(n),
+			contact_email : encodeURI(e),
+			contact_message : encodeURI(m)
+		};
+		$('button').attr("disabled", true);
+		$.getJSON(url, q).done(doneContact).fail(failContact);
+		return false;
 	}
-	$('button').attr("disabled", false);
-}
 
-function failContact(jqxhr, textStatus, error) {
-	$("#contactForm").attr("class", "nonedisplay");
-	$("#responsError").attr("class", "showdisplay");
-}
+	function doneContact(datos) {
+		if ("success" == datos.status) {
+			$("#contactForm").attr("class", "nonedisplay");
+			$("#responsBox").attr("class", "showdisplay");
+		} else {
+			if (datos.errors.contact_name) {
+				$("#name_error").html(datos.errors.contact_name);
+			} else {
+				$("#name_error").html("");
+			}
+			if (datos.errors.contact_email) {
+				$("#email_error").html(datos.errors.contact_email);
+			} else {
+				$("#email_error").html("");
+			}
+			if (datos.errors.contact_message) {
+				$("#message_error").html(datos.errors.contact_message);
+			} else {
+				$("#message_error").html("");
+			}
+			if (!datos.errors) {
+				$("#responsError").attr("class", "showdisplay");
+			}
+		}
+		$('button').attr("disabled", false);
+	}
 
-
+	function failContact(jqxhr, textStatus, error) {
+		$("#contactForm").attr("class", "nonedisplay");
+		$("#responsError").attr("class", "showdisplay");
+	}
 </script>
+<style type="text/css">
+body {
+	color: #070707;
+}
+header {
+	display: block;
+	width: 640px;
+	height: 40px;
+	margin: 0 auto;
+	text-align: center;
+	color: #FFc060;
+	background-color: #9F2F00;
+	border: solid 1px #FF7F50;
+}
+section {
+	display: block;
+	width: 640px;
+	margin: 0 auto;
+	padding: 1em;
+}
+
+footer {
+	display: block;
+	width: 640px;
+	height: 40px;
+	margin: 0 auto;
+	text-align: center;
+	color: #FFc060;
+	background-color: #9F2F00;
+	border: solid 1px #FF7F50;
+	
+}
+textarea {
+	width: 100%;
+}
+
+.nonedisplay {
+	display: none;
+}
+
+.showdisplay {
+	display: block;
+}
+
+.err_message {
+	color: red;
+}
+#contactForm {
+	display: block;
+	padding: 1em;
+	text-align: center;
+}
+
+#contactForm input {
+	display: block;
+	width: 100%;
+}
+
+</style>
 </head>
-<body onLoad="setNavigation();">
+<body>
 	<!-- ヘッダー -->
 	<header>
+		<h1>お問い合わせ</h1>
 	</header>
-	<!-- トップナビゲーション -->
-	<nav>
-	</nav>
 	<!-- 本文 -->
 	<section>
-		<div id="main">
-			<div id="centercontent">
-				<h1>お問い合わせフォーム</h1>
-				<form id="contactForm" method="post" action="#">
-					<p class="section">
-						<label>お名前<input type="text" name="contact_name" size=20> <span id="name_error" class="err_message"></span></label>
-					</p>
-					<p class="section">
-						<span>e-mail</span> <input type="text" name="contact_email" size=20> <span id="email_error" class="err_message"></span>
-					</p>
-					<p class="section">
-						<span>お問い合わせ内容(500文字まで)</span> <span id="message_error" class="err_message"></span>
-					</p>
-					<textarea name="contact_message" rows="10" maxlength="500"></textarea><br>
-					<button type="button" onclick="submitContact();">送信</button>
-					<button type="reset">キャンセル</button>
-				</form>
-				<div id="responsBox" class="nonedisplay">
-					<p>確認メールをお送りいたしました。<br>しばらくお待ちください。</p>
-				</div>
-				<div id="responsError" class="nonedisplay">
-					<p>送信できませんでした。</p>
-				</div>
-				<br/>
-			</div>
+		<h2>お問い合わせフォーム</h2>
+		<form id="contactForm" method="post" action="#">
+			<p>
+				<label>お名前</label>
+				<span id="name_error" class="err_message"></span>
+				<input type="text" name="contact_name" size=20>
+			</p>
+			<p>
+				<label>e-mail</label>
+				<span id="email_error" class="err_message"></span>
+				<input type="text" name="contact_email" size=20>
+			</p>
+			<p>
+				<label>お問い合わせ内容(500文字まで)</label>
+				<span id="message_error" class="err_message"></span>
+				<textarea name="contact_message" rows="10" maxlength="500"></textarea>
+			</p>
+			<p>
+				<button type="button">送信</button>
+				<button type="reset">キャンセル</button>
+			</p>
+		</form>
+		<div id="responsBox" class="nonedisplay">
+			<p>確認メールをお送りいたしました。</p>
+			<p>しばらくお待ちください。</p>
+		</div>
+		<div id="responsError" class="nonedisplay">
+			<p>送信できませんでした。</p>
 		</div>
 	</section>
 	<!-- フッター -->
 	<footer>
-		<div id="footer">
-			<span>Copyright &copy; 2016 Powered by Ryan's Factory</span>
-		</div>
+			<small>Copyright &copy; 2016 Powered by Ryan's Factory</small>
 	</footer>
 </body>
 </html>
