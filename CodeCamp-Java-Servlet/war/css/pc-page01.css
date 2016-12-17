@@ -1,0 +1,380 @@
+@charset "UTF-8";
+
+#centercontent a, p {
+	padding: 0;
+	margin: 0;
+}
+
+#centercontent p.phrase {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+	margin-left: 1em;
+	margin-right: 1em;
+}
+
+#centercontent p.cap {
+	color: red;
+}
+
+#centercontent p.caution {
+	color: red;
+}
+
+
+#annotation p.in-line {
+	display: inline;
+	font-size: 0.6em;
+	color: #9F2F00;
+}
+
+#shop_word {
+	width: 320px;
+}
+
+#twitter {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+img[usemap] {
+	border: none;
+	height: auto;
+	max-width: 100%;
+	width: auto;
+}
+
+img.shop-photo {
+	float: left;
+	width: 160px;
+	height: 120px;
+	border: none;
+	margin: 2px;
+}
+
+img.icon-link {
+	padding: 2px;
+	border: none;
+	cursor: pointer;
+}
+
+.section {
+	font-size: 1em;
+	word-wrap: break-word;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+	margin: 0.5em;
+}
+
+.section-line {
+	float: left;
+	width: 100%;
+	overflow-x: hidden;
+}
+
+.section-icons {
+	width: 100%;
+	overflow-x: hidden;
+}
+
+#shop_list {
+	max-width: 100%;
+	height: auto;
+}
+
+
+
+div.wordstring {
+	position: relative;
+	width: 600px;
+	color: #9F2F00;
+	top: 200px;
+	left: 60px
+}
+
+.shop-info {
+	float: left;
+	width: 740px;
+	margin: 4px;
+}
+
+.shop-box {
+	clear: both;
+}
+
+div.tip {
+	position: relative;
+	color: #9F2F00;
+}
+
+div.tip span {
+	display: none;
+	position: absolute;
+	top: 28px;
+	left: 0px;
+	width: 40em;
+	padding: 5px;
+	z-index: 100;
+	background: #9F2F00;
+	color: #fff;
+	text-align: left;
+	-moz-border-radius: 5px; /* this works only in camino/firefox */
+	-webkit-border-radius: 5px; /* this is just for Safari */
+}
+
+div:hover.tip {
+	font-size: 99%; /* this is just for IE */
+}
+
+div:hover.tip span {
+	display: block;
+}
+
+#ajaxLoader {
+	display: none;
+}
+
+#shopBlock {
+	display: none;
+}
+
+.shoplink {
+	font-size:1.5em;
+	color:#9F2F00;
+}
+.clear_both {
+	width:100%;
+	clear:both;
+}
+
+.youtube {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+.youtube iframe {
+	width: 420px;
+	height: 315px;
+}
+
+.attention {
+	color: red;
+}
+
+.canvas {
+	width: 100%;
+	height: 600px;
+}
+
+.map_maker { min-width: 120px;text-align:center; }
+
+.stateAccordion {
+	display: none;
+}
+
+textarea {
+	width: 98%;
+}
+
+.nonedisplay {
+	display: none;
+}
+
+.showdisplay {
+	display: block;
+}
+
+.err_message {
+	color: red;
+}
+
+#responsBox p {
+	font-size: 2em;
+	width: 100%;
+	text-align: center;
+}
+
+#responsError p {
+	font-size: 2em;
+	width: 100%;
+	text-align:	center;
+	color: red;
+}
+
+
+hr {
+	display: block;
+	width: 100%;
+	height: 1px;
+	background-color: #FF7F50;
+	border: 0;
+}
+
+.nav-toggle {
+	display: none;
+}
+
+/**
+	nekocafe.html
+*/
+.headlinetext {
+	font-size: 1em;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+	margin: 0.5em;
+}
+.shop_section {
+	font-size: 1em;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+	margin: 0.5em;
+	border: solid 1px #FFCFA0;
+}
+
+.commentary {
+	word-wrap: break-word;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+	margin: 0.5em;
+	font-size: 0.75em;
+	color: #FF9F60;
+	border: 0;
+}
+
+.photos_text {
+	float: left;
+	max-width: 380px;
+}
+.shop_canvas {
+	width:100%;
+	height:400px;
+	margin: 0.5em;
+}
+
+img.shop_photo {
+	float: left;
+	width: 240px;
+	height: 180px;
+	border: none;
+	margin: 2px;
+	padding-right: 0.5em;
+}
+
+img.photos {
+	float: left;
+	max-width: 400px;
+}
+
+img.photos_img {
+	max-width: 970px;
+}
+
+#shop_photos hr {
+	display: block;
+	width: 100%;
+	height: 1px;
+	background-color: #FF7F50;
+	border: 0;
+}
+
+#intromap_start {
+	display: none;
+}
+
+/** toshop.html */
+.loginSection {
+	width: 80%;
+	padding: 0.5em;
+	border: solid 1px #FFCFA0;
+}
+.loginSection div {
+	display:inline;
+}
+.loginSection input {
+	width: 10em;
+}
+#loginError {
+	display: none;
+	color: red;
+}
+
+/** メッセージボックス */
+div.boxDecision {
+	display: none;
+	position:absolute;
+	height: auto !important;
+	height: 100%;
+	border: solid 1px #000000;
+	background-color: #c0c0c0;
+	font-size:1em;
+}
+div.boxDecision .titleframe { border-bottom: 1px solid #000000; }
+div.boxDecision .titlename { margin-left: 6px; }
+div.boxDecision .close { float: right; cursor: pointer; margin: 0; padding: 0; }
+
+/** register.html */
+.shopForm {
+	width: 100%;
+	max-width:970px;
+	border-collapse: collapse;
+	border-spacing: 0;
+	border:none;
+	margin: 1px 1px 1px 1px;
+	text-align: center;
+}
+.shopForm th,td{
+	vertical-align: middle;
+	border: 1px solid #b8b8b8;
+}
+.shopForm input{
+	width: 98%;
+	border:none;
+}
+.shopForm textarea{
+	border:none;
+	width: 98%;
+	min-width:98%;
+	max-width:98%;
+	height:100%;
+	margin-top: 2px;
+	margin-bottom: 0;
+	margin-left: 0;
+	margin-right: 0;
+}
+.shopForm select {
+	width: 6em;
+	margin-top: 2px;
+	margin-bottom: 2px;
+	margin-left: 4px;
+	margin-right: 4px;
+}
+.shopForm td.ss{
+	color: red;
+	font-size:0.5em;
+}
+.shopForm td.help {
+	padding-left:0.5em;
+	padding-right:0.5em;
+	text-align: center;
+	font-size:0.75em;
+	color:#FF0000;
+	text-align:left;
+}
+.shopForm div {
+	width:100%;
+}
+#responsRegister {
+	display:none;
+	width: 100%;
+	border: solid 1px #FFCFA0;
+}
+#responsRegister p {
+	color:red;
+	padding: 1em;
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>お問い合わせ</title>
+<link rel="stylesheet" type="text/css" href="css/initial.css" />
+<link rel="stylesheet" type="text/css" href="css/pc-style.css" />
+<link rel="stylesheet" type="text/css" href="css/pc-page01.css" />
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+
+function submitContact() {
+	var n = $('input[name="contact_name"]').val();
+	var e = $('input[name="contact_email"]').val();
+	var m = $('textarea[name="contact_message"]').val();
+	var url = "/ContactForm?contact_name=" + encodeURI(n) + "&contact_email=" + encodeURI(e) + "&contact_message=" + encodeURI(m);
+	var id = $("#id").attr("value");
+	$('button').attr("disabled", true);
+	$.getJSON(url, {id : id}).done(doneContact).fail(failContact);
+	return false;
+}
+
+function doneContact(datos) {
+	if ("success" == datos.status) {
+		$("#contactForm").attr("class", "nonedisplay");
+		$("#responsBox").attr("class", "showdisplay");
+	} else {
+		if (datos.errors.contact_name) {
+			$("#name_error").html(datos.errors.contact_name);
+		} else {
+			$("#name_error").html("");
+		}
+		if (datos.errors.contact_email) {
+			$("#email_error").html(datos.errors.contact_email);
+		} else {
+			$("#email_error").html("");
+		}
+		if (datos.errors.contact_message) {
+			$("#message_error").html(datos.errors.contact_message);
+		} else {
+			$("#message_error").html("");
+		}
+		if (!datos.errors) {
+			$("#responsError").attr("class", "showdisplay");
+		}
+	}
+	$('button').attr("disabled", false);
+}
+
+function failContact(jqxhr, textStatus, error) {
+	$("#contactForm").attr("class", "nonedisplay");
+	$("#responsError").attr("class", "showdisplay");
+}
+
+
+</script>
+</head>
+<body onLoad="setNavigation();">
+	<!-- ヘッダー -->
+	<header>
+	</header>
+	<!-- トップナビゲーション -->
+	<nav>
+	</nav>
+	<!-- 本文 -->
+	<section>
+		<div id="main">
+			<div id="centercontent">
+				<h1>お問い合わせフォーム</h1>
+				<form id="contactForm" method="post" action="#">
+					<p class="section">
+						<label>お名前<input type="text" name="contact_name" size=20> <span id="name_error" class="err_message"></span></label>
+					</p>
+					<p class="section">
+						<span>e-mail</span> <input type="text" name="contact_email" size=20> <span id="email_error" class="err_message"></span>
+					</p>
+					<p class="section">
+						<span>お問い合わせ内容(500文字まで)</span> <span id="message_error" class="err_message"></span>
+					</p>
+					<textarea name="contact_message" rows="10" maxlength="500"></textarea><br>
+					<button type="button" onclick="submitContact();">送信</button>
+					<button type="reset">キャンセル</button>
+				</form>
+				<div id="responsBox" class="nonedisplay">
+					<p>確認メールをお送りいたしました。<br>しばらくお待ちください。</p>
+				</div>
+				<div id="responsError" class="nonedisplay">
+					<p>送信できませんでした。</p>
+				</div>
+				<br/>
+			</div>
+		</div>
+	</section>
+	<!-- フッター -->
+	<footer>
+		<div id="footer">
+			<span>Copyright &copy; 2016 Powered by Ryan's Factory</span>
+		</div>
+	</footer>
+</body>
+</html>
