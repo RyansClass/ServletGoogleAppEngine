@@ -12,20 +12,39 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@SuppressWarnings("serial")
+@SuppressWarnings("serial") // シリアルバージョンIDのワーニング（警告）を防ぐ
 public class ContactForm extends HttpServlet {
 
 	// ログ出力
 	private Logger log = Logger.getLogger(this.getClass().getName());
 
+	// リクエストのクエリ
 	private enum Requestor {
-		NAME("contact_name"), EMAIL("contact_email"), MESSAGE("contact_message");
+		/* 名前 */
+		NAME("contact_name"),
+		/* メールアドレス */
+		EMAIL("contact_email"),
+		/* コメント欄 */
+		MESSAGE("contact_message");
+		/**
+		 * パラメータの名前
+		 */
 		private String name;
 
+		/**
+		 * コンストラクタ
+		 * 
+		 * @param name
+		 */
 		Requestor(String name) {
 			this.name = name;
 		}
 
+		/**
+		 * パラメータの名前を取得
+		 * 
+		 * @return
+		 */
 		public String getName() {
 			return this.name;
 		}
