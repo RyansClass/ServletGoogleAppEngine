@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>アカウントの作成</title>
+<link rel="stylesheet" type="text/css" href="css/initial.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<style type="text/css">
+body {
+	color: #070707;
+}
+header {
+	display: block;
+	width: 640px;
+	height: 40px;
+	margin: 0 auto;
+	text-align: center;
+	color: #FFc060;
+	background-color: #9F2F00;
+	border: solid 1px #FF7F50;
+}
+section {
+	display: block;
+	width: 640px;
+	margin: 0 auto;
+	padding: 1em;
+}
+
+footer {
+	display: block;
+	width: 640px;
+	height: 40px;
+	margin: 0 auto;
+	text-align: center;
+	color: #FFc060;
+	background-color: #9F2F00;
+	border: solid 1px #FF7F50;
+	
+}
+textarea {
+	width: 100%;
+}
+
+.nonedisplay {
+	display: none;
+}
+
+.showdisplay {
+	display: block;
+}
+
+.err_message {
+	color: red;
+}
+#signUpForm {
+	display: block;
+	padding: 1em;
+	text-align: center;
+}
+
+#signUpForm input {
+	display: block;
+	width: 100%;
+}
+
+</style>
+</head>
+<body>
+	<!-- ヘッダー -->
+	<header>
+		<h1>アカウントの作成</h1>
+	</header>
+	<!-- 本文 -->
+	<section>
+		<h2>アカウントの作成フォーム</h2>
+		<form id="signUpForm" method="post" action="#">
+			<p>
+				<label>お名前</label>
+				<span id="name_error" class="err_message"></span>
+				<input type="text" name="lastName" size=20 placeholder="姓">
+				<input type="text" name="firstName" size=20 placeholder="名">
+			</p>
+			<p>
+				<label>メールアドレス</label>
+				<span id="email_error" class="err_message"></span>
+				<input type="text" name="email" size=20>
+			</p>
+			<p>
+				<label>パスワード</label>
+				<span id="pass_error" class="err_message"></span>
+				<input type="password" name="pass" size=20>
+			</p>
+			<p>
+				<label>パスワードの再入力</label>
+				<span id="passAgain_error" class="err_message"></span>
+				<input type="password" name="passAgain" size=20>
+			</p>
+			<p>
+				<button type="button">送信</button>
+				<button type="reset">キャンセル</button>
+			</p>
+		</form>
+	</section>
+	<!-- フッター -->
+	<footer>
+			<small>Copyright &copy; 2016 Powered by Ryan's Factory</small>
+	</footer>
+	
+</body>
+</html>

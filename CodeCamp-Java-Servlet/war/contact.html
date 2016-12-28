@@ -6,25 +6,39 @@
 <link rel="stylesheet" type="text/css" href="css/initial.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>
+	/* 準備完了時に実行される */
 	$(document).ready(function() {
 		$('#contactForm').find('button[type="button"]').click(submitContact);
 	});
 
+	/**
+	 * 送信ボタンがクリックされた
+	 */
 	function submitContact() {
+		// 名前の取得
 		var n = $('input[name="contact_name"]').val();
+		// メールアドレスの取得
 		var e = $('input[name="contact_email"]').val();
+		// 本文の取得
 		var m = $('textarea[name="contact_message"]').val();
+		// サーバのURL
 		var url = "/ContactForm";
+		// クエリー文字列の設定
 		var q = {
 			contact_name : encodeURI(n),
 			contact_email : encodeURI(e),
 			contact_message : encodeURI(m)
 		};
+		// ボタンを全て使用禁止にする
 		$('button').attr("disabled", true);
+		// サーバからJsonデータを取得する
 		$.getJSON(url, q).done(doneContact).fail(failContact);
 		return false;
 	}
 
+	/**
+	 * 通信が正常に終了した
+	 */
 	function doneContact(datos) {
 		if ("success" == datos.status) {
 			$("#contactForm").attr("class", "nonedisplay");
@@ -52,6 +66,9 @@
 		$('button').attr("disabled", false);
 	}
 
+	/**
+	 * 通信が失敗した
+	 */
 	function failContact(jqxhr, textStatus, error) {
 		$("#contactForm").attr("class", "nonedisplay");
 		$("#responsError").attr("class", "showdisplay");
@@ -63,7 +80,8 @@ body {
 }
 header {
 	display: block;
-	width: 640px;
+	max-width: 640px;
+	min-width: 240px;
 	height: 40px;
 	margin: 0 auto;
 	text-align: center;
@@ -73,14 +91,16 @@ header {
 }
 section {
 	display: block;
-	width: 640px;
+	max-width: 640px;
+	min-width: 240px;
 	margin: 0 auto;
 	padding: 1em;
 }
 
 footer {
 	display: block;
-	width: 640px;
+	max-width: 640px;
+	min-width: 240px;
 	height: 40px;
 	margin: 0 auto;
 	text-align: center;
