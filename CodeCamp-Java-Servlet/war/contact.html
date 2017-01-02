@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <title>お問い合わせ</title>
 <link rel="stylesheet" type="text/css" href="css/initial.css" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>
 	/* 準備完了時に実行される */
 	$(document).ready(function() {
@@ -41,8 +42,10 @@
 	 */
 	function doneContact(datos) {
 		if ("success" == datos.status) {
-			$("#contactForm").attr("class", "nonedisplay");
-			$("#responsBox").attr("class", "showdisplay");
+			$("#contactForm").removeClass("showdisplay");
+			$("#contactForm").addClass("nonedisplay");
+			$("#responsBox").removeClass("class", "nonedisplay");
+			$("#responsBox").addClass("showdisplay");
 		} else {
 			if (datos.errors.contact_name) {
 				$("#name_error").html(datos.errors.contact_name);
@@ -78,6 +81,7 @@
 body {
 	color: #070707;
 }
+
 header {
 	display: block;
 	max-width: 640px;
@@ -89,6 +93,7 @@ header {
 	background-color: #9F2F00;
 	border: solid 1px #FF7F50;
 }
+
 section {
 	display: block;
 	max-width: 640px;
@@ -107,8 +112,8 @@ footer {
 	color: #FFc060;
 	background-color: #9F2F00;
 	border: solid 1px #FF7F50;
-	
 }
+
 textarea {
 	width: 100%;
 }
@@ -124,6 +129,7 @@ textarea {
 .err_message {
 	color: red;
 }
+
 #contactForm {
 	display: block;
 	padding: 1em;
@@ -134,7 +140,6 @@ textarea {
 	display: block;
 	width: 100%;
 }
-
 </style>
 </head>
 <body>
@@ -147,18 +152,16 @@ textarea {
 		<h2>お問い合わせフォーム</h2>
 		<form id="contactForm" method="post" action="#">
 			<p>
-				<label>お名前</label>
-				<span id="name_error" class="err_message"></span>
+				<label>お名前</label> <span id="name_error" class="err_message"></span>
 				<input type="text" name="contact_name" size=20>
 			</p>
 			<p>
-				<label>e-mail</label>
-				<span id="email_error" class="err_message"></span>
+				<label>e-mail</label> <span id="email_error" class="err_message"></span>
 				<input type="text" name="contact_email" size=20>
 			</p>
 			<p>
-				<label>お問い合わせ内容(500文字まで)</label>
-				<span id="message_error" class="err_message"></span>
+				<label>お問い合わせ内容(500文字まで)</label> <span id="message_error"
+					class="err_message"></span>
 				<textarea name="contact_message" rows="10" maxlength="500"></textarea>
 			</p>
 			<p>
@@ -169,6 +172,14 @@ textarea {
 		<div id="responsBox" class="nonedisplay">
 			<p>確認メールをお送りいたしました。</p>
 			<p>しばらくお待ちください。</p>
+			>
+			<p>確認メールをお送りいたしました。</p>
+			<p>しばらくお待ちください。</p>
+			<p>---------------------------</p>
+			<p>下記の内容で入力されました。</p>
+			<p>お名前 :<span id="rname"></span></p>
+			<p>e-mail :<span id="remail"></span></p>
+			<p>お問合せ内容 :<span id="rtext"></span></p>
 		</div>
 		<div id="responsError" class="nonedisplay">
 			<p>送信できませんでした。</p>
@@ -176,7 +187,7 @@ textarea {
 	</section>
 	<!-- フッター -->
 	<footer>
-			<small>Copyright &copy; 2016 Powered by Ryan's Factory</small>
+		<small>Copyright &copy; 2016 Powered by Ryan's Factory</small>
 	</footer>
 </body>
 </html>
